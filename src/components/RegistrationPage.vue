@@ -131,6 +131,12 @@ export default {
 
       firebase.auth().createUserWithEmailAndPassword(this.fields.email, this.fields.password)
         .then(() => {
+          const userName = this.fields.email.split('@')[0].replace(/[.]/g, '');
+
+          firebase.database().ref('users/' + userName).set({
+            name: this.fields.name,
+            isSanta: false,
+          });
           this.$emit('update:current-page', 'BecomePage');
         })
         .catch((error) => {

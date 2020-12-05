@@ -10,6 +10,7 @@
               :is="currentPage"
               :current-page.sync="currentPage"
               :user-is-sign-in="userIsSignIn"
+              :user-id="userId"
           ></component>
         </transition>
       </div>
@@ -39,6 +40,7 @@ export default {
     return {
       currentPage: '',
       userIsSignIn: false,
+      userId: null,
     }
   },
   mounted() {
@@ -48,7 +50,10 @@ export default {
   },
   created() {
     firebase.auth().onAuthStateChanged((user) => {
-      this.userIsSignIn = !!user;
+      if (user != null) {
+        this.userIsSignIn = true;
+        this.userId = user.email.split('@')[0].replace(/[.]/g, '');
+      }
     });
     firebase.auth();
   }
