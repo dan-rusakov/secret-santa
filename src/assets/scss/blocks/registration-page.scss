@@ -1,0 +1,44 @@
+.registration-page__registration-btn {
+  margin-bottom: 21px;
+}
+
+.registration-page__label {
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 50px;
+}
+
+.registration-page__checkbox-input {
+  &:checked + .registration-page__checkbox {
+    background-color: $white;
+  }
+
+  &.focus-visible + .registration-page__checkbox {
+    box-shadow: 0 0 0 2px $black, 0 0 0 3px $white;
+  }
+}
+
+.registration-page__checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid $white;
+  flex-shrink: 0;
+  margin-right: 14px;
+  background-color: transparent;
+  transition: .25s background-color ease;
+}
+
+.registration-page__checkbox-text {
+  margin: 0;
+  color: $white;
+  font-weight: $semibold;
+  font-size: 18px;
+  font-family: $font-family-base;
+  line-height: 1.2;
+}
+
+.registration-page__input {
+  outline: none;
+  margin-bottom: 30px;
+}
