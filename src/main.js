@@ -2,6 +2,7 @@ import Vue from 'vue'
 import 'focus-visible/dist/focus-visible.min.js'
 import firebase from 'firebase/app'
 import 'firebase/database'
+import 'firebase/auth'
 
 import App from './App.vue'
 import './assets/scss/app.scss'

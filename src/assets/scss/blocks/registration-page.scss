@@ -41,4 +41,17 @@
 .registration-page__input {
   outline: none;
   margin-bottom: 30px;
+  transition: .25s color ease;
+
+  &::placeholder {
+    transition: .25s color ease;
+  }
+
+  &--error {
+    color: $red;
+
+    &::placeholder {
+      color: $red;
+    }
+  }
 }
