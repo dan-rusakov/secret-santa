@@ -13,6 +13,7 @@
               :user-id="userId"
               :is-santa.sync="isSanta"
               :default-selected-guy.sync="selectedGuy"
+              :santa="santa"
           ></component>
         </transition>
       </div>
@@ -45,6 +46,7 @@ export default {
       userId: null,
       isSanta: false,
       selectedGuy: null,
+      santa: [],
     }
   },
   mounted() {
@@ -66,6 +68,11 @@ export default {
       }
     });
     firebase.auth();
+
+    firebase.database().ref('users/').on('value', (snapshot) => {
+      const users = snapshot.val();
+      this.santa = Object.values(users).filter(user => user.isSanta);
+    });
   }
 };
 </script>

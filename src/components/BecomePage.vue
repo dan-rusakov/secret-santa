@@ -60,12 +60,12 @@ export default {
     userId: String,
     isSanta: Boolean,
     defaultSelectedGuy: String,
+    santa: Array,
   },
   data() {
     return {
       selectedGuy: this.defaultSelectedGuy,
       btnDisabled: false,
-      santa: [],
       showSelectedGuy: false,
     };
   },
@@ -105,11 +105,5 @@ export default {
       });
     },
   },
-  created() {
-    firebase.database().ref('users/').on('value', (snapshot) => {
-      const users = snapshot.val();
-      this.santa = Object.values(users).filter(user => user.isSanta);
-    });
-  }
 }
 </script>
