@@ -50,6 +50,11 @@
 .login-page__login-btn {
   width: 260px;
   margin-bottom: 21px;
+  transition: .25s opacity ease;
+
+  &:disabled {
+    opacity: 0.7;
+  }
 }
 
 .login-page__action-mark {

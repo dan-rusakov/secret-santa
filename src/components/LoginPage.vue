@@ -16,7 +16,7 @@
         :class="[
           'text-input',
           'login-page__input',
-          {'login-page__input--error': fields.email},
+          {'login-page__input--error': fieldsErrors.email},
           {'shaking': fieldsErrors.email && isAnimationRunning},
         ]"
         placeholder="Email"
@@ -31,7 +31,7 @@
         :class="[
           'text-input',
           'login-page__input',
-          {'login-page__input--error': fields.password},
+          {'login-page__input--error': fieldsErrors.password},
           {'shaking': fieldsErrors.password && isAnimationRunning},
         ]"
         placeholder="Пароль"
@@ -42,12 +42,14 @@
         <button
           class="btn login-page__login-btn"
           type="submit"
+          :disabled="btnDisabled"
         >Войти</button>
         <mark class="login-page__action-mark">или</mark>
         <button
           class="btn-secondary login-page__registration-page-btn"
           type="button"
           @click="goToRegistrationPage"
+          :disabled="btnDisabled"
         >Зарегистрироваться</button>
       </div>
     </form>
@@ -61,6 +63,7 @@ export default {
   name: 'LoginPage',
   props: {
     currentPage: String,
+    userId: String,
   },
   data() {
     return {
@@ -73,6 +76,7 @@ export default {
         password: '',
       },
       isAnimationRunning: false,
+      btnDisabled: false,
     };
   },
   watch: {
@@ -93,13 +97,29 @@ export default {
         return false;
       }
 
+      this.btnDisabled = true;
+
       firebase.auth().signInWithEmailAndPassword(this.fields.email, this.fields.password)
         .then(() => {
-          this.$emit('update:current-page', 'BecomePage');
+          const userId = this.fields.email.split('@')[0].replace(/[.]/g, '');
+
+          firebase.database().ref('users/' + userId).once('value')
+            .then((snapshot) => {
+              const user = snapshot.val();
+              this.$emit('update:is-santa', user.isSanta);
+              this.$emit('update:default-selected-guy', user.selectedGuy);
+              this.$emit('update:current-page', 'BecomePage');
+            })
+          .catch((error) => {
+            alert(error.message);
+          });
         })
         .catch((error) => {
           alert(error.message);
-        });
+        })
+      .finally(() => {
+        this.btnDisabled = false;
+      });
     },
     validateForm() {
       this.validateEmail();

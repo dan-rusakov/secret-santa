@@ -6,7 +6,7 @@
           key="results-box"
           class="become-page__results-box"
       >
-        <p class="become-page__selected-guy-name">{{ selectedGuy.name }}</p>
+        <p class="become-page__selected-guy-name">{{ selectedGuy || defaultSelectedGuy }}</p>
         <img src="../assets/img/gift-box.svg" alt="" class="become-page__gift-box">
       </div>
       <div
@@ -30,12 +30,21 @@
           </li>
         </ul>
         <button
+            v-if="!isSanta"
             class="btn become-page__btn"
             type="button"
             :disabled="btnDisabled"
             @click="becomeSanta"
         >
           Стать Сантой
+        </button>
+        <button
+            v-else
+            class="btn become-page__btn"
+            type="button"
+            @click="showSelectedGuy = true"
+        >
+          Посмотреть результат
         </button>
       </div>
     </transition-group>
@@ -49,10 +58,12 @@ export default {
   name: 'BecomePage',
   props: {
     userId: String,
+    isSanta: Boolean,
+    defaultSelectedGuy: String,
   },
   data() {
     return {
-      selectedGuy: null,
+      selectedGuy: this.defaultSelectedGuy,
       btnDisabled: false,
       santa: [],
       showSelectedGuy: false,
@@ -73,13 +84,24 @@ export default {
 
       firebase.database().ref('people/').once('value').then((snapshot) => {
         const people = snapshot.val();
-        const freePeople = people.filter(guy => !guy.selected);
+        let freePeople = people.filter(guy => !guy.selected);
 
-        this.selectedGuy = freePeople[Math.floor(Math.random() * freePeople.length)];
+        if (!freePeople.length) {
+          freePeople = people;
+        }
 
+        const selectedGuyData = freePeople[Math.floor(Math.random() * freePeople.length)];
+        this.selectedGuy = selectedGuyData.name;
         this.showSelectedGuy = true;
-        firebase.database().ref('people/' + this.selectedGuy.id).update({selected: true});
-        firebase.database().ref('users/' + this.userId).update({isSanta: true});
+
+        firebase.database().ref('people/' + selectedGuyData.id).update({selected: true});
+        firebase.database().ref('users/' + this.userId).update({
+          isSanta: true,
+          selectedGuy: selectedGuyData.name,
+        });
+
+        this.$emit('update:is-santa', true);
+        this.btnDisabled = false;
       });
     },
   },

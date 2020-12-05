@@ -11,6 +11,8 @@
               :current-page.sync="currentPage"
               :user-is-sign-in="userIsSignIn"
               :user-id="userId"
+              :is-santa.sync="isSanta"
+              :default-selected-guy.sync="selectedGuy"
           ></component>
         </transition>
       </div>
@@ -41,6 +43,8 @@ export default {
       currentPage: '',
       userIsSignIn: false,
       userId: null,
+      isSanta: false,
+      selectedGuy: null,
     }
   },
   mounted() {
@@ -53,6 +57,12 @@ export default {
       if (user != null) {
         this.userIsSignIn = true;
         this.userId = user.email.split('@')[0].replace(/[.]/g, '');
+
+        firebase.database().ref('users/' + this.userId).once('value').then((snapshot) => {
+          const user = snapshot.val();
+          this.isSanta = user.isSanta;
+          this.selectedGuy = user.selectedGuy;
+        });
       }
     });
     firebase.auth();

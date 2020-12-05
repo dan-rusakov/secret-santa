@@ -136,6 +136,7 @@ export default {
           firebase.database().ref('users/' + userName).set({
             name: this.fields.name,
             isSanta: false,
+            selectedGuy: null,
           });
           this.$emit('update:current-page', 'BecomePage');
         })
