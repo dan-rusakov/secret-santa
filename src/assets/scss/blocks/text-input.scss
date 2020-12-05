@@ -1,0 +1,17 @@
+.text-input {
+  display: inline-block;
+  width: 100%;
+  border: 0;
+  background-color: $white;
+  border-radius: 60px;
+  color: $text-color;
+  font-weight: $semibold;
+  font-size: 18px;
+  font-family: $font-family-base;
+  line-height: 1.23;
+  padding: 16px 34px;
+
+  &::placeholder {
+    color: lighten($text-color, 25%);
+  }
+}

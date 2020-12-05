@@ -13,3 +13,14 @@
   max-width: 100%;
   text-align: center;
 }
+
+.btn-secondary {
+  display: inline-block;
+  border: 0;
+  border-bottom: 1px solid $white;
+  color: $white;
+  font-weight: $semibold;
+  font-size: 18px;
+  font-family: $font-family-base;
+  line-height: 1.35;
+}
