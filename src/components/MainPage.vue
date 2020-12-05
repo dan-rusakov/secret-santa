@@ -15,10 +15,13 @@ export default {
   name: 'MainPage',
   props: {
     currentPage: String,
+    userIsSignIn: Boolean,
   },
   methods: {
     goToLoginPage() {
-      this.$emit('update:current-page', 'LoginPage');
+      this.userIsSignIn
+        ? this.$emit('update:current-page', 'BecomePage')
+        : this.$emit('update:current-page', 'LoginPage');
     },
   },
 };

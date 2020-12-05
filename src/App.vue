@@ -6,7 +6,11 @@
       </div>
       <div class="main__inner">
         <transition name="slide-up" mode="out-in">
-          <component :is="currentPage" :current-page.sync="currentPage"></component>
+          <component
+              :is="currentPage"
+              :current-page.sync="currentPage"
+              :user-is-sign-in="userIsSignIn"
+          ></component>
         </transition>
       </div>
       <div class="main__right-tree">
@@ -21,6 +25,7 @@ import MainPage from './components/MainPage';
 import LoginPage from './components/LoginPage';
 import RegistrationPage from './components/RegistrationPage';
 import BecomePage from './components/BecomePage';
+import firebase from 'firebase/app';
 
 export default {
   name: 'App',
@@ -33,6 +38,7 @@ export default {
   data() {
     return {
       currentPage: '',
+      userIsSignIn: false,
     }
   },
   mounted() {
@@ -40,5 +46,11 @@ export default {
       this.currentPage = 'MainPage';
     }, 350);
   },
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.userIsSignIn = !!user;
+    });
+    firebase.auth();
+  }
 };
 </script>

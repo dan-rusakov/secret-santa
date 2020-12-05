@@ -22,9 +22,22 @@
 .login-page__input {
   outline: none;
   margin-bottom: 30px;
+  transition: .25s color ease;
 
   &:last-of-type {
     margin-bottom: 50px;
+  }
+
+  &::placeholder {
+    transition: .25s color ease;
+  }
+
+  &--error {
+    color: $red;
+
+    &::placeholder {
+      color: $red;
+    }
   }
 }
 
