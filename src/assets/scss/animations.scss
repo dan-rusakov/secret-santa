@@ -41,3 +41,20 @@
 .shaking {
   animation: shaking .35s ease 0s 1 forwards;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .35s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

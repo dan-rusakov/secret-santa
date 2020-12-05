@@ -75,6 +75,15 @@ export default {
       isAnimationRunning: false,
     };
   },
+  watch: {
+    isAnimationRunning(value) {
+      if (value) {
+        setTimeout(() => {
+          this.isAnimationRunning = false;
+        }, 350);
+      }
+    },
+  },
   methods: {
     goToRegistrationPage() {
       this.$emit('update:current-page', 'RegistrationPage');

@@ -1,29 +1,44 @@
 <template>
   <div class="become-page">
-    <h2 class="become-page__title">Наши Санты</h2>
-    <ul class="become-page__santa-list" v-if="santa.length">
-      <li
-          class="become-page__santa-item"
-          v-for="(user, index) in santa"
-          :key="index"
+    <transition-group name="fade">
+      <div
+          v-if="showSelectedGuy"
+          key="results-box"
+          class="become-page__results-box"
       >
-        <svg class="become-page__santa-item-icon" width="34" height="34">
-          <use xlink:href="#icon-check"></use>
-        </svg>
-        <p class="become-page__santa-name">
-          {{ user.name }}
-        </p>
-      </li>
-    </ul>
-    <button
-        class="btn become-page__btn"
-        type="button"
-        :disabled="btnDisabled"
-        @click="becomeSanta"
-    >
-      Стать Сантой
-    </button>
-
+        <p class="become-page__selected-guy-name">{{ selectedGuy.name }}</p>
+        <img src="../assets/img/gift-box.svg" alt="" class="become-page__gift-box">
+      </div>
+      <div
+          v-else
+          key="content"
+          class="become-page"
+      >
+        <h2 class="become-page__title">Наши Санты</h2>
+        <ul class="become-page__santa-list" v-if="santa.length">
+          <li
+              class="become-page__santa-item"
+              v-for="(user, index) in santa"
+              :key="index"
+          >
+            <svg class="become-page__santa-item-icon" width="34" height="34">
+              <use xlink:href="#icon-check"></use>
+            </svg>
+            <p class="become-page__santa-name">
+              {{ user.name }}
+            </p>
+          </li>
+        </ul>
+        <button
+            class="btn become-page__btn"
+            type="button"
+            :disabled="btnDisabled"
+            @click="becomeSanta"
+        >
+          Стать Сантой
+        </button>
+      </div>
+    </transition-group>
   </div>
 </template>
 
@@ -40,7 +55,17 @@ export default {
       selectedGuy: null,
       btnDisabled: false,
       santa: [],
+      showSelectedGuy: false,
     };
+  },
+  watch: {
+    showSelectedGuy(value) {
+      if (value) {
+        setTimeout(() => {
+          this.showSelectedGuy = false;
+        }, 5000);
+      }
+    },
   },
   methods: {
     becomeSanta() {
@@ -52,6 +77,7 @@ export default {
 
         this.selectedGuy = freePeople[Math.floor(Math.random() * freePeople.length)];
 
+        this.showSelectedGuy = true;
         firebase.database().ref('people/' + this.selectedGuy.id).update({selected: true});
         firebase.database().ref('users/' + this.userId).update({isSanta: true});
       });
