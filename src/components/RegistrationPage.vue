@@ -1,7 +1,12 @@
 <template>
   <div class="login-page">
     <h2 class="login-page__title">Регистрация</h2>
-    <form action="" method="post" class="login-page__form" novalidate>
+    <form
+        action="#!"
+        method="post"
+        class="login-page__form"
+        novalidate
+    >
       <input
           aria-label="Имя и фамилия"
           type="text"
@@ -42,6 +47,7 @@
         <button
             class="btn-secondary login-page__registration-page-btn"
             type="button"
+            @click="goToLoginPage"
         >Войти</button>
       </div>
     </form>
@@ -51,5 +57,13 @@
 <script>
 export default {
   name: 'RegistrationPage',
+  props: {
+    currentPage: String,
+  },
+  methods: {
+    goToLoginPage() {
+      this.$emit('update:current-page', 'LoginPage');
+    },
+  },
 }
 </script>

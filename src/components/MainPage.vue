@@ -4,7 +4,7 @@
     <h2 class="main-page__description">
       Ощути радость подготовки сюрприза и незабываемые эмоции человека, получившего свой подарок
     </h2>
-    <button class="btn main-page__btn" type="button">
+    <button class="btn main-page__btn" type="button" @click="goToLoginPage">
       Войти
     </button>
   </div>
@@ -13,5 +13,13 @@
 <script>
 export default {
   name: 'MainPage',
+  props: {
+    currentPage: String,
+  },
+  methods: {
+    goToLoginPage() {
+      this.$emit('update:current-page', 'LoginPage');
+    },
+  },
 };
 </script>

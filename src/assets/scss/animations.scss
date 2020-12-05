@@ -1,6 +1,17 @@
-.fade-enter-active, .fade-leave-active {
-  transition: .35s opacity ease;
+.slide-up-enter-active {
+  transition: .75s transform , .5s opacity;
 }
-.fade-enter, .fade-leave-to {
+
+.slide-up-leave-active {
+    transition: 1s transform, .75s opacity;
+}
+
+.slide-up-enter {
+  transform: translateY(200px);
+  opacity: 0;
+}
+
+.slide-up-leave-to {
+  transform: translateY(-200px);
   opacity: 0;
 }
