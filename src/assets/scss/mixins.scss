@@ -1,7 +1,7 @@
-@mixin wrapper() {
+@mixin inner() {
   display: flex;
   flex-direction: row;
-  max-width: 1260px;
+  max-width: 980px;
   padding: 0 30px;
   margin: 0 auto;
 

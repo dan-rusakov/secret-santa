@@ -1,6 +1,10 @@
 import Vue from 'vue'
-import App from './App.vue'
+import 'focus-visible/dist/focus-visible.min.js'
 import firebase from 'firebase/app'
+import 'firebase/database'
+
+import App from './App.vue'
+import './assets/scss/app.scss'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBeY0recxqJ082lrHtZspRnucYTQ9HDFi0",
