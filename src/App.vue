@@ -20,6 +20,7 @@
       <div class="main__right-tree">
         <img src="./assets/img/tree.svg" alt="Новогодняя елка" class="main__left-tree-img" width="639">
       </div>
+      <canvas class="show-flakes" ref="showFlakes" />
     </div>
   </div>
 </template>
@@ -30,6 +31,7 @@ import LoginPage from './components/LoginPage';
 import RegistrationPage from './components/RegistrationPage';
 import BecomePage from './components/BecomePage';
 import firebase from 'firebase/app';
+import snowflakes from './snowflakes';
 
 export default {
   name: 'App',
@@ -50,6 +52,10 @@ export default {
     }
   },
   mounted() {
+    snowflakes({
+      canvas: this.$refs.showFlakes,
+    });
+
     setTimeout(() => {
       this.currentPage = 'MainPage';
     }, 350);

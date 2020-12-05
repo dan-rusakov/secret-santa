@@ -50,6 +50,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .become-page__gift-box {
@@ -74,6 +75,7 @@
   display: inline-block;
   opacity: 0;
   animation: fade .35s ease 1.5s 1 forwards;
+  pointer-events: all;
 
   &::before {
     content: "";
