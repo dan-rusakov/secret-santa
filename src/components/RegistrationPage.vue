@@ -34,7 +34,7 @@
           {'registration-page__input--error': fieldsErrors.email},
           {'shaking': fieldsErrors.email && isAnimationRunning},
         ]"
-        placeholder="Email"
+        placeholder="Рабочая почта (@flagstudio)"
         autocomplete="username"
         @change="validateEmail"
       >
@@ -163,6 +163,9 @@ export default {
     validateEmail() {
       if (!this.fields.email) {
         this.fieldsErrors.email = 'Поле обязательно для заполнения';
+        this.isAnimationRunning = true;
+      } else if (!/(@flagstudio\.ru)/.test(this.fields.email)) {
+        this.fieldsErrors.email = 'Неправильный формат';
         this.isAnimationRunning = true;
       } else {
         this.fieldsErrors.email = '';

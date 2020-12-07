@@ -83,7 +83,8 @@ export default {
       this.btnDisabled = true;
 
       firebase.database().ref('people/').once('value').then((snapshot) => {
-        const people = snapshot.val();
+        let people = snapshot.val();
+        people = people.filter(guy => guy.mail !== this.userId);
         let freePeople = people.filter(guy => !guy.selected);
 
         if (!freePeople.length) {
