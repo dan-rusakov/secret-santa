@@ -77,7 +77,7 @@ export default {
 
     firebase.database().ref('users/').on('value', (snapshot) => {
       const users = snapshot.val();
-      this.santa = Object.values(users).filter(user => user.isSanta);
+      this.santa = Object.values(users);
     });
   }
 };
