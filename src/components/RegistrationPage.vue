@@ -9,21 +9,6 @@
       @submit.prevent="submitForm"
     >
       <input
-        v-model="fields.name"
-        aria-label="Имя и фамилия"
-        type="text"
-        name="name"
-        :class="[
-          'text-input',
-          'registration-page__input',
-          {'registration-page__input--error': fieldsErrors.name},
-          {'shaking': fieldsErrors.name && isAnimationRunning},
-        ]"
-        placeholder="Имя и фамилия"
-        autocomplete="name"
-        @change="validateName"
-      >
-      <input
         v-model="fields.email"
         aria-label="Email"
         type="email"
@@ -97,13 +82,11 @@ export default {
   data() {
     return {
       fields: {
-        name: '',
         email: '',
         password: '',
         confirmation: false,
       },
       fieldsErrors: {
-        name: '',
         email: '',
         password: '',
         confirmation: '',
@@ -129,36 +112,37 @@ export default {
         return false;
       }
 
-      firebase.auth().createUserWithEmailAndPassword(this.fields.email, this.fields.password)
-        .then(() => {
-          const userName = this.fields.email.split('@')[0].replace(/[.]/g, '');
+      firebase.database().ref('emails/').once('value')
+        .then((snapshot) => {
+          const emails = snapshot.val();
+          
+          if (!Object.values(emails).includes(this.fields.email)) {
+            this.fieldsErrors.email = 'Неправильный формат';
+            this.isAnimationRunning = true;
 
-          firebase.database().ref('users/' + userName).set({
-            name: this.fields.name,
-            isSanta: false,
-            selectedGuy: null,
-          });
-          this.$emit('update:current-page', 'BecomePage');
+            return;
+          }
+
+          firebase.auth().createUserWithEmailAndPassword(this.fields.email, this.fields.password)
+            .then(() => {
+              this.$emit('update:current-page', 'BecomePage');
+            })
+            .catch((error) => {
+              alert(error.message);
+            })
         })
         .catch((error) => {
           alert(error.message);
-        })
+        });
+
+      
     },
     validateForm() {
-      this.validateName();
       this.validateEmail();
       this.validatePassword();
       this.validateConfirmation();
 
       return !Object.values(this.fieldsErrors).some(field => field);
-    },
-    validateName() {
-      if (!this.fields.name) {
-        this.fieldsErrors.name = 'Поле обязательно для заполнения';
-        this.isAnimationRunning = true;
-      } else {
-        this.fieldsErrors.name = '';
-      }
     },
     validateEmail() {
       if (!this.fields.email) {
