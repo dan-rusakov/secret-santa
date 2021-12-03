@@ -21,12 +21,22 @@
               v-for="(user, index) in santa"
               :key="index"
           >
+          <template v-if="user.isSanta">
             <svg class="become-page__santa-item-icon" width="34" height="34">
               <use xlink:href="#icon-check"></use>
             </svg>
             <p class="become-page__santa-name">
               {{ user.name }}
             </p>
+          </template>
+          <template v-else>
+            <svg class="become-page__not-santa-item-icon" width="34" height="34">
+              <use xlink:href="#icon-cross"></use>
+            </svg>
+            <p class="become-page__not-santa-name">
+              {{ user.name }}
+            </p>
+          </template>
           </li>
         </ul>
         <button
