@@ -67,7 +67,7 @@
         >
         <span class="registration-page__checkbox"></span>
         <span class="registration-page__checkbox-text">
-          Я согласен подарить только хороший подарок и красиво его упаковать
+          Я согласен подарить только хороший и красиво упакованный подарок
         </span>
       </label>
       <div class="login-page__action-box">

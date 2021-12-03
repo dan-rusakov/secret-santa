@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div class="main">
-      <div class="main__left-tree">
-        <img src="./assets/img/tree.svg" alt="Новогодняя елка" class="main__left-tree-img" width="580">
+      <div class="main__left-decor">
+        <img src="./assets/img/decorations.svg" alt="Новогодний декор" class="main__left-decor-img" width="900">
       </div>
       <div class="main__inner">
         <transition name="slide-up" mode="out-in">
@@ -17,8 +17,8 @@
           ></component>
         </transition>
       </div>
-      <div class="main__right-tree">
-        <img src="./assets/img/tree.svg" alt="Новогодняя елка" class="main__left-tree-img" width="639">
+      <div class="main__right-decor">
+        <img src="./assets/img/decorations.svg" alt="Новогодний декор" class="main__left-decor-img" width="900">
       </div>
       <canvas class="show-flakes" ref="showFlakes" />
     </div>

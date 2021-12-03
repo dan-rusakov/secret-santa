@@ -1,11 +1,8 @@
 <template>
   <div class="main-page">
     <h1 class="main-page__title">Secret Santa</h1>
-    <h2 class="main-page__description">
-      Ощути радость подготовки сюрприза и незабываемые эмоции человека, получившего свой подарок
-    </h2>
-    <button class="btn main-page__btn" type="button" @click="goToLoginPage">
-      Войти
+    <button class="btn main-page__btn" type="button" @click="beginHandler">
+      Начать
     </button>
   </div>
 </template>
@@ -18,10 +15,10 @@ export default {
     userIsSignIn: Boolean,
   },
   methods: {
-    goToLoginPage() {
+    beginHandler() {
       this.userIsSignIn
         ? this.$emit('update:current-page', 'BecomePage')
-        : this.$emit('update:current-page', 'LoginPage');
+        : this.$emit('update:current-page', 'RegistrationPage');
     },
   },
 };

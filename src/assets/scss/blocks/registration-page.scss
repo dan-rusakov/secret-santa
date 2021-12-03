@@ -9,8 +9,8 @@
 }
 
 .registration-page__checkbox-input {
-  &:checked + .registration-page__checkbox {
-    background-color: $white;
+  &:checked + .registration-page__checkbox::before {
+    opacity: 1;
   }
 
   &.focus-visible + .registration-page__checkbox {
@@ -27,6 +27,20 @@
   margin-right: 14px;
   background-color: transparent;
   transition: .25s background-color ease;
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+    background-color: $white;
+    opacity: 0;
+  }
 }
 
 .registration-page__checkbox-text {
